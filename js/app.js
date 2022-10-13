@@ -55,11 +55,27 @@ function createNav() {
 }
 createNav();
 
+
 // Add class 'active' to section when near top of viewport
 
 
 // Scroll to anchor ID using scrollTO event
-
+const links = document.querySelectorAll(".navbar__menu ul a");
+ 
+for (const link of links) {
+  link.addEventListener("click", clickHandler);
+}
+ 
+function clickHandler(e) {
+  e.preventDefault();
+  const href = this.getAttribute("href");
+  const offsetTop = document.querySelector(href).offsetTop;
+ 
+  scroll({
+    top: offsetTop,
+    behavior: "smooth"
+  });
+}
 
 /**
  * End Main Functions
