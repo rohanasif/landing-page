@@ -22,6 +22,8 @@
  * Define Global Variables
  * 
 */
+const headings = document.getElementsByTagName("h2");
+const navList = document.getElementById("navbar__list");
 
 
 /**
