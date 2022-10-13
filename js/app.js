@@ -41,7 +41,15 @@ const ulEl = document.getElementById("navbar__list");
 */
 
 // build the nav
-
+function createNav() {
+    for(let i=0; i<3; i++) {
+        let li = document.createElement("li");
+        let text = document.createTextNode(headings[i].innerHTML);
+        li.appendChild(text);
+        ulEl.appendChild(li);
+    }
+}
+createNav();
 
 // Add class 'active' to section when near top of viewport
 
