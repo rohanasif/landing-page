@@ -42,10 +42,13 @@ const ulEl = document.getElementById("navbar__list");
 
 // build the nav
 function createNav() {
-    for(let i=0; i<3; i++) {
+    for(let i=0; i<4; i++) {
         let li = document.createElement("li");
+        let a = document.createElement("a");
         let text = document.createTextNode(headings[i].innerHTML);
-        li.appendChild(text);
+        li.appendChild(a);
+        a.appendChild(text);
+        a.href = "#";
         ulEl.appendChild(li);
     }
 }
