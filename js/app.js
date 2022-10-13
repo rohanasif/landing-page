@@ -24,6 +24,7 @@
 */
 const headings = document.getElementsByTagName("h2");
 const ulEl = document.getElementById("navbar__list");
+const sections = document.getElementsByTagName("section");
 
 
 /**
@@ -42,13 +43,13 @@ const ulEl = document.getElementById("navbar__list");
 
 // build the nav
 function createNav() {
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<headings.length; i++) {
         let li = document.createElement("li");
         let a = document.createElement("a");
         let text = document.createTextNode(headings[i].innerHTML);
         li.appendChild(a);
         a.appendChild(text);
-        a.href = "#";
+        a.href = '#' + sections[i].id;
         ulEl.appendChild(li);
     }
 }
