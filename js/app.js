@@ -62,12 +62,15 @@ const anchors = document.querySelectorAll("a");
 
 // Add class 'active' to section when near top of viewport
 
-for (let section of sections) {
-  if (isNearTop(section) && !(isActive(section))) {
-    section.classList.add("your-active-class");
+for (let i = 0; i < 4; i++) {
+  if (isNearTop(sections[i]) && !(isActive(sections[i]))) {
+    sections[i].classList.add("your-active-class");
+    document.querySelectorAll('#navbar__list li')[i].classList.add("your-active-class");
+
   }
-  else if (!(isNearTop(section)) && (isActive(section))) {
-    section.classList.remove("your-active-class");
+  else if (!(isNearTop(sections[i])) && (isActive(sections[i]))) {
+    sections[i].classList.remove("your-active-class");
+    document.querySelectorAll('#navbar__list li')[i].classList.remove("your-active-class");
   }
 }
 
