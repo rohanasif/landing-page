@@ -1,104 +1,99 @@
-<!DOCTYPE>
-<html lang="en">
+/**
+ * 
+ * Manipulating the DOM exercise.
+ * Exercise programmatically builds navigation,
+ * scrolls to anchors from navigation,
+ * and highlights section in viewport upon scrolling.
+ * 
+ * Dependencies: None
+ * 
+ * JS Version: ES2015/ES6
+ * 
+ * JS Standard: ESlint
+ * 
+*/
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Manipulating the DOM</title>
-  <!-- Load Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">
-  <!-- Load Styles -->
-  <link href="css/styles.css" rel="stylesheet">
-  <script src="/js/app.js" defer></script>
-</head>
+/**
+ * Comments should be present at the beginning of each procedure and class.
+ * Great to have comments before crucial code sections within the procedure.
+*/
 
-<body>
-  <!-- HTML Follows BEM naming conventions 
-  IDs are only used for sections to connect menu achors to sections -->
-  <header class="page__header">
-    <nav class="navbar__menu">
-      <!-- Navigation starts as empty UL that will be populated with JS -->
-      <ul id="navbar__list"></ul>
-    </nav>
-  </header>
-  <main>
-    <header class="main__hero">
-      <h1>Landing Page </h1>
-    </header>
-    <!-- Each Section has an ID (used for the anchor) and 
-    a data attribute that will populate the li node.
-    Adding more sections will automatically populate nav.
-    The first section is set to active class by default -->
-    <section id="section1" data-nav="Section 1" class="your-active-class">
-      <div class="landing__container">
-        <h2>Section 1</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-          dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-          imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-          bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-          elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-          nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-          semper in tellus. Sed congue et odio sed euismod.</p>
+/**
+ * Define Global Variables
+ * 
+*/
+const headings = document.querySelectorAll("h2");
+const ul = document.querySelector("ul");
+const sections = document.querySelectorAll("section");
+const anchors = document.querySelectorAll("a");
+/**
+ * End Global Variables
+ * Start Helper Functions
+ * 
+*/
+function isNearTop(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
 
-        <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-          luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-          porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
-      </div>
-    </section>
-    <section id="section2" data-nav="Section 2">
-      <div class="landing__container">
-        <h2>Section 2</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-          dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-          imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-          bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-          elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-          nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-          semper in tellus. Sed congue et odio sed euismod.</p>
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
 
-        <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-          luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-          porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
-      </div>
-    </section>
-    <section id="section3" data-nav="Section 3">
-      <div class="landing__container">
-        <h2>Section 3</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-          dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-          imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-          bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-          elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-          nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-          semper in tellus. Sed congue et odio sed euismod.</p>
+// build the nav
+for (let i = 0; i < headings.length; i++) {
+    let li = document.createElement("li");
+    let a = document.createElement("a");
+    let text = document.createTextNode(headings[i].innerHTML);
+    a.classList.add("menu__link");
+    a.appendChild(text);
+    li.appendChild(a);
+    ul.appendChild(li);
+}
 
-        <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-          luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-          porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
-      </div>
-    </section>
-    <section id="section4" data-nav="Section 4">
-      <div class="landing__container">
-        <h2>Section 4</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-          dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-          imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-          bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-          elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-          nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-          semper in tellus. Sed congue et odio sed euismod.</p>
 
-        <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-          luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-          porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
-      </div>
-    </section>
-  </main>
-  <footer class="page__footer">
-    <p>&copy Udacity</p>
-  </footer>
+// Add class 'active' to section when near top of viewport
+for (let section of sections) {
+    if (isNearTop(section)) {
+        section.classList.add("your-active-class");
+    }
+    else {
+        section.classList.remove("your-active-class");
+    }
+}
 
-</body>
+// Scroll to anchor ID using scrollTo event
 
-</html>
+// for (let i = 0; i < anchors.length; i++) {
+//     anchors[i].addEventListener('click', () => window.scrollTo({
+//         top: getYPosition(sections[i]),
+//         behavior: 'smooth',
+//       }));
+
+// }
+
+for (let i=0; i < 4; i++) {
+    anchors[i].addEventListener('click', () => sections[i].scrollIntoView({
+        behavior: 'smooth'
+    }));
+}
+
+
+/**
+ * End Main Functions
+ * Begin Events
+ *
+*/
+
+// Build menu 
+
+// Scroll to section on link click
+
+// Set sections as active
