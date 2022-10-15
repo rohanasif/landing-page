@@ -63,7 +63,7 @@ const anchors = document.querySelectorAll("a");
 
 // Add class 'active' to section when near top of viewport
 for (let section of sections) {
-  if (isNearTop(section)) {
+  if (section.getBoundingClientRect().y === 0 && !(section.classList.contains("your-active-class"))) {
     section.classList.add("your-active-class");
   }
   else {
