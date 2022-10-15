@@ -33,13 +33,11 @@ const sections = document.querySelectorAll("section");
 */
 
 function isNearTop(el) {
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
+  return el.getBoundingClientRect().y === 0;
+}
+
+function isActive(el) {
+  return el.classList.contains("your-active-class");
 }
 
 /**
@@ -63,7 +61,7 @@ const anchors = document.querySelectorAll("a");
 
 // Add class 'active' to section when near top of viewport
 for (let section of sections) {
-  if (section.getBoundingClientRect().y === 0 && !(section.classList.contains("your-active-class"))) {
+  if (isNearTop(section) && !(isActive(section))) {
     section.classList.add("your-active-class");
   }
   else {
