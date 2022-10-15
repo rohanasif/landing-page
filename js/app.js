@@ -25,20 +25,20 @@
 const headings = document.querySelectorAll("h2");
 const ul = document.querySelector("ul");
 const sections = document.querySelectorAll("section");
-const anchors = document.querySelectorAll("a");
+
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
 function isNearTop(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
 }
 
 /**
@@ -49,24 +49,24 @@ function isNearTop(el) {
 
 // build the nav
 for (let i = 0; i < headings.length; i++) {
-    let li = document.createElement("li");
-    let a = document.createElement("a");
-    let text = document.createTextNode(headings[i].innerHTML);
-    a.classList.add("menu__link");
-    a.appendChild(text);
-    li.appendChild(a);
-    ul.appendChild(li);
+  let li = document.createElement("li");
+  let a = document.createElement("a");
+  let text = document.createTextNode(headings[i].innerHTML);
+  a.classList.add("menu__link");
+  a.appendChild(text);
+  li.appendChild(a);
+  ul.appendChild(li);
 }
-
+const anchors = document.querySelectorAll("a");
 
 // Add class 'active' to section when near top of viewport
 for (let section of sections) {
-    if (isNearTop(section)) {
-        section.classList.add("your-active-class");
-    }
-    else {
-        section.classList.remove("your-active-class");
-    }
+  if (isNearTop(section)) {
+    section.classList.add("your-active-class");
+  }
+  else {
+    section.classList.remove("your-active-class");
+  }
 }
 
 // Scroll to anchor ID using scrollTo event
@@ -79,10 +79,10 @@ for (let section of sections) {
 
 // }
 
-for (let i=0; i < 4; i++) {
-    anchors[i].addEventListener('click', () => sections[i].scrollIntoView({
-        behavior: 'smooth'
-    }));
+for (let i = 0; i < 4; i++) {
+  document.querySelectorAll("a")[i].addEventListener('click', () => sections[i].scrollIntoView({
+    behavior: 'smooth'
+  }));
 }
 
 
