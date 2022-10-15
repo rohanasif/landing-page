@@ -25,6 +25,7 @@
 const headings = document.querySelectorAll("h2");
 const ul = document.querySelector("ul");
 const sections = document.querySelectorAll("section");
+const anchors = document.querySelectorAll("a");
 /**
  * End Global Variables
  * Start Helper Functions
@@ -40,11 +41,6 @@ function isNearTop(el) {
     );
 }
 
-function getYPosition(el) {
-    let rect = el.getBoundingClientRect();
-    return (rect.top + rect.bottom)/2;
-
-}
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -74,13 +70,19 @@ for (let section of sections) {
 }
 
 // Scroll to anchor ID using scrollTo event
-const anchors = document.querySelectorAll("a");
-for (let i = 0; i < anchors.length; i++) {
-    anchors[i].addEventListener('click', () => window.scrollTo({
-        top: getYPosition(sections[i]),
-        behavior: 'smooth',
-      }));
 
+// for (let i = 0; i < anchors.length; i++) {
+//     anchors[i].addEventListener('click', () => window.scrollTo({
+//         top: getYPosition(sections[i]),
+//         behavior: 'smooth',
+//       }));
+
+// }
+
+for (let i=0; i < 4; i++) {
+    anchors[i].addEventListener('click', () => sections[i].scrollIntoView({
+        behavior: 'smooth'
+    }));
 }
 
 
