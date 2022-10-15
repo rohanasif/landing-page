@@ -22,27 +22,29 @@
  * Define Global Variables
  * 
 */
-const headings = document.getElementsByTagName("h2");
-const ul = document.getElementById("navbar__list");
-const sections = document.getElementsByTagName("section");
-
-
+const headings = document.querySelectorAll("h2");
+const ul = document.querySelector("ul");
+const sections = document.querySelectorAll("section");
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-let isInViewport = function (elem) {
-	let distance = elem.getBoundingClientRect();
-	return (
-		distance.top >= 0 &&
-		distance.left >= 0 &&
-		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
-	);
-};
+function isNearTop(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
 
+function getYPosition(el) {
+    let rect = el.getBoundingClientRect();
+    return (rect.top + rect.bottom)/2;
 
+}
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -50,37 +52,42 @@ let isInViewport = function (elem) {
 */
 
 // build the nav
-function createNav() {
-    for(let i = 0; i<headings.length; i++) {
-        let li = document.createElement("li");
-        let a = document.createElement("a");
-        let text = document.createTextNode(headings[i].innerHTML);
-        li.appendChild(a);
-        a.appendChild(text);
-        a.href = '#' + sections[i].id;
-        ul.appendChild(li);
-    }
+for (let i = 0; i < headings.length; i++) {
+    let li = document.createElement("li");
+    let a = document.createElement("a");
+    let text = document.createTextNode(headings[i].innerHTML);
+    a.classList.add("menu__link");
+    a.appendChild(text);
+    li.appendChild(a);
+    ul.appendChild(li);
 }
-createNav();
 
 
 // Add class 'active' to section when near top of viewport
-function addActiveClass(){
-  for (let section of sections){
-    if (isInViewport(section)){
-      section.classList.add("your-active-class");
+for (let section of sections) {
+    if (isNearTop(section)) {
+        section.classList.add("your-active-class");
     }
-  }
+    else {
+        section.classList.remove("your-active-class");
+    }
 }
-addActiveClass();
 
-// Scroll to anchor ID using scrollTO event
+// Scroll to anchor ID using scrollTo event
+const anchors = document.querySelectorAll("a");
+for (let i = 0; i < anchors.length; i++) {
+    anchors[i].addEventListener('click', () => window.scrollTo({
+        top: getYPosition(sections[i]),
+        behavior: 'smooth',
+      }));
+
+}
 
 
 /**
  * End Main Functions
  * Begin Events
- * 
+ *
 */
 
 // Build menu 
