@@ -33,7 +33,7 @@ const sections = document.querySelectorAll("section");
 */
 
 function isNearTop(el) {
-  return el.getBoundingClientRect().y === 0;
+  return el.getBoundingClientRect().y >= 0 && el.getBoundingClientRect().y <= 1;
 }
 
 function isActive(el) {
@@ -64,7 +64,7 @@ for (let section of sections) {
   if (isNearTop(section) && !(isActive(section))) {
     section.classList.add("your-active-class");
   }
-  else {
+  else if (!(isNearTop(section)) && (isActive(section))) {
     section.classList.remove("your-active-class");
   }
 }
