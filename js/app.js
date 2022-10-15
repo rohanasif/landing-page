@@ -23,7 +23,7 @@
  * 
 */
 const headings = document.getElementsByTagName("h2");
-const ulEl = document.getElementById("navbar__list");
+const ul = document.getElementById("navbar__list");
 const sections = document.getElementsByTagName("section");
 
 
@@ -32,7 +32,15 @@ const sections = document.getElementsByTagName("section");
  * Start Helper Functions
  * 
 */
-
+let isInViewport = function (elem) {
+	let distance = elem.getBoundingClientRect();
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
 
 
 /**
@@ -50,14 +58,21 @@ function createNav() {
         li.appendChild(a);
         a.appendChild(text);
         a.href = '#' + sections[i].id;
-        ulEl.appendChild(li);
+        ul.appendChild(li);
     }
 }
 createNav();
 
 
 // Add class 'active' to section when near top of viewport
-
+function addActiveClass(){
+  for (let section of sections){
+    if (isInViewport(section)){
+      section.classList.add("your-active-class");
+    }
+  }
+}
+addActiveClass();
 
 // Scroll to anchor ID using scrollTO event
 
