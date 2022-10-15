@@ -31,6 +31,7 @@ const sections = document.querySelectorAll("section");
  * Start Helper Functions
  * 
 */
+
 function isNearTop(el) {
   const rect = el.getBoundingClientRect();
   return (
@@ -48,6 +49,7 @@ function isNearTop(el) {
 */
 
 // build the nav
+
 for (let i = 0; i < headings.length; i++) {
   let li = document.createElement("li");
   let a = document.createElement("a");
@@ -70,14 +72,6 @@ for (let section of sections) {
 }
 
 // Scroll to anchor ID using scrollTo event
-
-// for (let i = 0; i < anchors.length; i++) {
-//     anchors[i].addEventListener('click', () => window.scrollTo({
-//         top: getYPosition(sections[i]),
-//         behavior: 'smooth',
-//       }));
-
-// }
 
 for (let i = 0; i < 4; i++) {
   document.querySelectorAll("a")[i].addEventListener('click', () => sections[i].scrollIntoView({
