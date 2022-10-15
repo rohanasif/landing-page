@@ -43,7 +43,7 @@ const sections = document.getElementsByTagName("section");
 
 // build the nav
 function createNav() {
-    for(let i=0; i<headings.length; i++) {
+    for(let i = 0; i<headings.length; i++) {
         let li = document.createElement("li");
         let a = document.createElement("a");
         let text = document.createTextNode(headings[i].innerHTML);
@@ -60,22 +60,7 @@ createNav();
 
 
 // Scroll to anchor ID using scrollTO event
-const links = document.querySelectorAll(".navbar__menu ul a");
- 
-for (const link of links) {
-  link.addEventListener("click", clickHandler);
-}
- 
-function clickHandler(e) {
-  e.preventDefault();
-  const href = this.getAttribute("href");
-  const offsetTop = document.querySelector(href).offsetTop;
- 
-  scroll({
-    top: offsetTop,
-    behavior: "smooth"
-  });
-}
+
 
 /**
  * End Main Functions
