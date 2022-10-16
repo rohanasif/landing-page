@@ -34,11 +34,11 @@ const sections = document.querySelectorAll("section");
 */
 
 function isNearTop(el) {
-  return el.getBoundingClientRect().y >= 0 && el.getBoundingClientRect().y <= 1;
+  return el.getBoundingClientRect().y >= 0 && el.getBoundingClientRect().y <= 20;
 }
 
 function isActive(el) {
-  return el.classList.contains("your-active-class");
+  return el.classList.contains("active");
 }
 
 /**
@@ -58,26 +58,27 @@ for (let i = 0; i < headings.length; i++) {
   li.appendChild(a);
   ul.appendChild(li);
 }
-const anchors = document.querySelectorAll("a");
+const anchors = document.querySelectorAll("#navbar__list li");
 
 // Add class 'active' to section when near top of viewport
-
-for (let i = 0; i < 4; i++) {
-  if (isNearTop(sections[i]) && !(isActive(sections[i]))) {
-    sections[i].classList.add("your-active-class");
-    document.querySelectorAll('#navbar__list li')[i].classList.add("your-active-class");
-
-  }
-  else if (!(isNearTop(sections[i])) && (isActive(sections[i]))) {
-    sections[i].classList.remove("your-active-class");
-    document.querySelectorAll('#navbar__list li')[i].classList.remove("your-active-class");
-  }
+for (let i = 0; i < sections.length; i++) {
+  window.addEventListener("scroll", () => {
+    if ((!isActive(sections[sections.length]) && (isNearTop(sections[sections.length])))) {
+      sections[i].classList.add("active");
+      anchors[i].classList.add("active");
+    }
+    else if ((isActive(sections[sections.length]) && (!isNearTop(sections[sections.length])))) {
+      sections[i].classList.remove("active");
+      anchors[i].classList.remove("active");
+    }
+  })
 }
+
 
 // Scroll to anchor ID using scrollTo event
 
-for (let i = 0; i < 4; i++) {
-  document.querySelectorAll("a")[i].addEventListener('click', () => sections[i].scrollIntoView({
+for (let i = 0; i < sections.length; i++) {
+  document.querySelectorAll("a")[sections.length].addEventListener('click', () => sections[sections.length].scrollIntoView({
     behavior: 'smooth'
   }));
 }
