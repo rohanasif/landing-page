@@ -63,11 +63,11 @@ const anchors = document.querySelectorAll("#navbar__list li");
 // Add class 'active' to section when near top of viewport
 for (let i = 0; i < sections.length; i++) {
   window.addEventListener("scroll", () => {
-    if ((!isActive(sections[sections.length]) && (isNearTop(sections[sections.length])))) {
+    if ((!isActive(sections[i]) && (isNearTop(sections[i])))) {
       sections[i].classList.add("active");
       anchors[i].classList.add("active");
     }
-    else if ((isActive(sections[sections.length]) && (!isNearTop(sections[sections.length])))) {
+    else if ((isActive(sections[i]) && (!isNearTop(sections[i])))) {
       sections[i].classList.remove("active");
       anchors[i].classList.remove("active");
     }
@@ -78,7 +78,7 @@ for (let i = 0; i < sections.length; i++) {
 // Scroll to anchor ID using scrollTo event
 
 for (let i = 0; i < sections.length; i++) {
-  document.querySelectorAll("a")[sections.length].addEventListener('click', () => sections[sections.length].scrollIntoView({
+  document.querySelectorAll("a")[i].addEventListener('click', () => sections[i].scrollIntoView({
     behavior: 'smooth'
   }));
 }
