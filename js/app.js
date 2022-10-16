@@ -34,7 +34,7 @@ const sections = document.querySelectorAll("section");
 */
 
 function isNearTop(el) {
-  return el.getBoundingClientRect().y >= 0 && el.getBoundingClientRect().y <= 20;
+  return el.getBoundingClientRect().y >= 0 && el.getBoundingClientRect().y <= el.offsetHeight;
 }
 
 function isActive(el) {
